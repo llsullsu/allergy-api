@@ -6,7 +6,7 @@ import * as fastify from 'fastify';
 
 const serveStatic = require('serve-static');
 
-require('dotenv').config({ path: path.join(__dirname, '../config') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
@@ -118,11 +118,11 @@ app.register(require('./plugins/db'), {
 });
 
 // MQTT
-app.register(require('./plugins/mqtt'), {
-  host: process.env.LOCAL_NOTIFY_SERVER,
-  username: process.env.LOCAL_NOTIFY_USER,
-  password: process.env.LOCAL_NOTIFY_PASSWORD
-});
+// app.register(require('./plugins/mqtt'), {
+//   host: process.env.LOCAL_NOTIFY_SERVER,
+//   username: process.env.LOCAL_NOTIFY_USER,
+//   password: process.env.LOCAL_NOTIFY_PASSWORD
+// });
 
 
 app.decorate('verifyAdmin', function (request, reply, done) {
@@ -145,34 +145,28 @@ app.register(require('./routes/index'), { prefix: '/v1', logger: true });
 app.register(require('./routes/login'), { prefix: '/v1/login', logger: true });
 app.register(require('./routes/users'), { prefix: '/v1/users', logger: true });
 app.register(require('./routes/token'), { prefix: '/v1/token', logger: true });
-app.register(require('./routes/api'), { prefix: '/v1/api', logger: true });
-app.register(require('./routes/service_points'), { prefix: '/v1/service-points', logger: true });
-app.register(require('./routes/service_rooms'), { prefix: '/v1/service-rooms', logger: true });
-app.register(require('./routes/priorities'), { prefix: '/v1/priorities', logger: true });
-app.register(require('./routes/queue'), { prefix: '/v1/queue', logger: true });
-app.register(require('./routes/print'), { prefix: '/v1/print', logger: true });
 
 app.get('/', async (req: fastify.Request, reply: fastify.Reply) => {
-  reply.code(200).send({ message: 'Welcome to Q4U API services!' })
+  reply.code(200).send({ message: 'Welcome to allergy-api!' })
 });
 
-const port = 3002;
-const host = '0.0.0.0';
+// const port = 3002;
+// const host = '0.0.0.0';
 
-app.listen(port, host, (err) => {
-  if (err) throw err;
+// app.listen(port, host, (err) => {
+//   if (err) throw err;
 
-  app.ws
-    .on('connection', socket => {
-      console.log('Client connected.')
-      socket.on('message', msg => socket.send(msg))
-      socket.on('close', () => console.log('Client disconnected.'))
-    })
+//   app.ws
+//     .on('connection', socket => {
+//       console.log('Client connected.')
+//       socket.on('message', msg => socket.send(msg))
+//       socket.on('close', () => console.log('Client disconnected.'))
+//     })
 
-  app.ws.on('error', error => {
-    console.log(error)
-    console.log('WebSocket server error!')
-  });
+//   app.ws.on('error', error => {
+//     console.log(error)
+//     console.log('WebSocket server error!')
+//   });
 
-  console.log(app.server.address());
-});
+//   console.log(app.server.address());
+// });
