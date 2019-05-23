@@ -1,15 +1,14 @@
-# ระบบ Queue API
-
+# ระบบ allergy-api
 ## Installation
 
 ```
 git clone https://gitlab.com/moph/queue/queue-api
-cd queue-api
-cp config.txt config
+cd allergy-api
+cp config.txt .env
 npm install
 ```
 
-Edit `config` file for connection/h4u configuration.
+Edit `.env` file for connection/allergy configuration.
 
 ## Running
 
