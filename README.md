@@ -1,4 +1,5 @@
-# ระบบ allergy-api
+# allergy-api
+api สำหรับเรียกใช้ข้อมูลผู้แพ้ยา โครงสร้างมาตรฐาน HL7-FHIR
 ## Installation
 
 ```
